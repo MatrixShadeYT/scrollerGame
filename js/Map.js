@@ -6,6 +6,16 @@ export class Map {
         this.mainGrid = this.setupGrid('000');
         this.offsetGrid = this.setupGrid(['000','000','000','000'],1);
     }
+    render(ctx) {
+        for (let y = 0; y < this.mainGrid.length; y++) {
+            for (let x = 0; x < this.mainGrid[y].length; x++) {
+                if (this.mainGrid[y][x] == '001') {
+                    ctx.fillStyle = '#110000';
+                    ctx.fillRect(x,y,1,1);
+                }
+            }
+        }
+    }
     updatePosition(key,position) {
         if (Number(key) >= 0 && Number(key) < this.tileCount) {
             this.mainGrid[position.y][position.x] = key;

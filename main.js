@@ -10,35 +10,32 @@ const map = new Map({
     height: 10,
     width: 16
 });
-for (let i = 0; i < map.height; i++) {
-    map.updatePosition('001',{x:0,y:i});
+for (let i = 0; i < 4; i++) {
+    map.updatePosition('001',{x:i,y:3});
 }
-for (let i = 0; i < map.height; i++) {
+for (let i = map.height-2; i < map.height; i++) {
+    map.updatePosition('001',{x:3,y:i});
+}
+for (let i = 0; i < map.height-1; i++) {
     map.updatePosition('001',{x:map.width-1,y:i});
 }
-for (let i = 0; i < map.width; i++) {
-    map.updatePosition('001',{x:i,y:map.height-1});
+for (let i = 0; i < 4; i++) {
+    map.updatePosition('001',{x:i,y:map.height-3});
 }
-
-function renderMap() {
-    ctx.fillStyle = '#440000';
-    for (let y = 0; y < map.mainGrid.length; y++) {
-        for (let x = 0; x < map.mainGrid[y].length; x++) {
-            if (map.mainGrid[y][x] == '001') {
-                ctx.fillRect(x*tileSize, y*tileSize, tileSize, tileSize);
-            }
-        }
-    }
-
+for (let i = 4; i < map.width; i++) {
+    map.updatePosition('001',{x:i,y:map.height-1});
 }
 
 let lastTime = 0;
 function animate(timeStamp) {
-    //window.requestAnimationFrame(animate);
-    ctx.fillStyle = '#111111';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    window.requestAnimationFrame(animate);
     const deltaTime = timeStamp-lastTime;
     lastTime = timeStamp;
-    renderMap();
+    ctx.fillStyle = '#222222';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.save();
+    ctx.scale(tileSize,tileSize);
+    map.render(ctx);
+    ctx.restore();
 }
-animate(0);
+window.requestAnimationFrame(animate);
