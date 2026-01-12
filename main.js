@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 var canvasRatio = canvas.width/canvas.height;
 canvas.width = canvas.height*(16/10);
 var tileSize = canvasRatio*7.5;
+
 const map = new Map({
     tileCount: 2,
     height: 10,
